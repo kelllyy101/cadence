@@ -50,8 +50,8 @@
 
 ## 9. Web hello (Vite + Apollo) (T-00-09)
 
-- [ ] 9.1 Scaffold `apps/web` with Vite + React + TS (ask first). Verify `pnpm dev` serves the page
-- [ ] 9.2 Add Apollo Client and render the `hello` result with loading and error states. Verify the page shows the API greeting with the stack running
+- [x] 9.1 Scaffold `apps/web` with Vite + React + TS (ask first). Verify `pnpm dev` serves the page
+- [x] 9.2 Add Apollo Client and render the `hello` result with loading and error states. Verify the page shows the API greeting with the stack running
 
 ## 10. Compose full stack (T-00-10)
 

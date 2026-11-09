@@ -1,4 +1,5 @@
 {
   "extends": "@cadence/config/tsconfig.react.json",
-  "include": ["src"]
+  "compilerOptions": { "types": ["vite/client", "@testing-library/jest-dom"] },
+  "include": ["src", "vite.config.ts", "codegen.ts"]
 }
