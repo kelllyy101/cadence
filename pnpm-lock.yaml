@@ -249,6 +249,10 @@ importers:
         version: link:../config
 
   packages/events:
+    dependencies:
+      zod:
+        specifier: ^4.6.7
+        version: 4.6.7
     devDependencies:
       '@cadence/config':
         specifier: workspace:*

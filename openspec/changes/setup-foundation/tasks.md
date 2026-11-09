@@ -22,9 +22,9 @@
 
 ## 4. Events package skeleton (T-00-04)
 
-- [ ] 4.1 Add `packages/events` envelope, event types, payload schemas (`.strict()`) and `TOPICS` with a type→topic map; add zod (ask first, check the v4 API). Verify unit tests for every type and the map's completeness
-- [ ] 4.2 Add `parseEvent(raw: unknown)` returning a discriminated result. Verify tests for valid, unknown-type, missing-id, extra-key and wrong-version messages
-- [ ] 4.3 Add the payload allow-list test. Verify adding `rpe` to a payload makes it fail
+- [x] 4.1 Add `packages/events` envelope, event types, payload schemas (`.strict()`) and `TOPICS` with a type→topic map; add zod (ask first, check the v4 API). Verify unit tests for every type and the map's completeness
+- [x] 4.2 Add `parseEvent(raw: unknown)` returning a discriminated result. Verify tests for valid, unknown-type, missing-id, extra-key and wrong-version messages
+- [x] 4.3 Add the payload allow-list test. Verify adding `rpe` to a payload makes it fail
 
 ## 5. Compose: Mongo replica set (T-00-05)
 

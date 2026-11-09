@@ -7,9 +7,17 @@
     "build": "echo \"events: no build yet\"",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit -p .",
-    "test": "echo \"events: no tests yet\""
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@cadence/config": "workspace:*"
+  },
+  "dependencies": {
+    "zod": "^4.6.7"
+  },
+  "description": "Cadence event contracts: envelope, catalogue, topics and validation.",
+  "exports": {
+    ".": "./src/index.ts"
   }
 }
