@@ -25,12 +25,15 @@ TypeScript (strict) · pnpm + Turborepo · Vitest, Testcontainers, Cypress + axe
 
 ## Run it
 
-Requires Docker, Node 22 and pnpm.
+Requires Docker. About 1 GB of RAM; first build takes a few minutes.
 
 ```bash
 cp .env.example .env
-docker compose up   # web :5173 · api :4000/graphql
+docker compose up --wait   # web http://localhost:5173 · api http://localhost:4000/graphql
+docker compose down        # stop (add -v to reset data)
 ```
+
+For local development without containers: Node 22, `corepack enable`, `pnpm install`, `pnpm dev`.
 
 Checks:
 - `pnpm --filter @cadence/api check:mongo`: transaction on the local replica set.

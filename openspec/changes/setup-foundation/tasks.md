@@ -55,8 +55,8 @@
 
 ## 10. Compose full stack (T-00-10)
 
-- [ ] 10.1 Add `api`, `insights-worker` (stub) and `web` services with healthchecks and `depends_on: service_healthy`. Verify `docker compose up` brings all services healthy from a fresh clone
-- [ ] 10.2 Fill in README "Local setup" and CLAUDE.md "Commands" with the real scripts. Verify each documented command runs as written
+- [x] 10.1 Add `api`, `insights-worker` (stub) and `web` services with healthchecks and `depends_on: service_healthy`. Verify `docker compose up` brings all services healthy from a fresh clone
+- [x] 10.2 Fill in README "Local setup" and CLAUDE.md "Commands" with the real scripts. Verify each documented command runs as written
 
 ## 11. CI skeleton (T-00-11)
 
