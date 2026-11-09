@@ -1,0 +1,4 @@
+{
+  "extends": "@cadence/config/tsconfig.react.json",
+  "include": ["src"]
+}

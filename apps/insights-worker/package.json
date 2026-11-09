@@ -5,8 +5,12 @@
   "type": "module",
   "scripts": {
     "build": "echo \"insights-worker: no build yet\"",
-    "lint": "echo \"insights-worker: no lint yet\"",
-    "typecheck": "echo \"insights-worker: no typecheck yet\"",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit -p .",
     "test": "echo \"insights-worker: no tests yet\""
+  },
+  "devDependencies": {
+    "@cadence/config": "workspace:*",
+    "@types/node": "^22.20.5"
   }
 }

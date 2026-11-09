@@ -5,8 +5,12 @@
   "type": "module",
   "scripts": {
     "build": "echo \"web: no build yet\"",
-    "lint": "echo \"web: no lint yet\"",
-    "typecheck": "echo \"web: no typecheck yet\"",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit -p .",
     "test": "echo \"web: no tests yet\""
+  },
+  "devDependencies": {
+    "@cadence/config": "workspace:*",
+    "vite": "^8.3.6"
   }
 }

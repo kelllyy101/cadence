@@ -9,10 +9,10 @@
 
 ## 2. Shared config: tsconfig, ESLint, Prettier (T-00-02)
 
-- [ ] 2.1 Add `packages/config` with `tsconfig.base.json` (strict flags from design), `tsconfig.node.json`, `tsconfig.react.json`; add typescript (ask first). Verify `pnpm typecheck` passes for every workspace
-- [ ] 2.2 Add shared ESLint flat config with typescript-eslint, react-hooks, jsx-a11y and prettier compat (ask first). Verify a temporary `any` fixture errors, then remove it
-- [ ] 2.3 Add the `packages/domain` import restriction. Verify a temporary `import mongoose` fixture errors, then remove it
-- [ ] 2.4 Add Prettier and `pnpm format` / `format:check`. Verify `format:check` fails on a misformatted file
+- [x] 2.1 Add `packages/config` with `tsconfig.base.json` (strict flags from design), `tsconfig.node.json`, `tsconfig.react.json`; add typescript (ask first). Verify `pnpm typecheck` passes for every workspace
+- [x] 2.2 Add shared ESLint flat config with typescript-eslint, react-hooks, jsx-a11y and prettier compat (ask first). Verify a temporary `any` fixture errors, then remove it
+- [x] 2.3 Add the `packages/domain` import restriction. Verify a temporary `import mongoose` fixture errors, then remove it
+- [x] 2.4 Add Prettier and `pnpm format` / `format:check`. Verify `format:check` fails on a misformatted file
 - [ ] 2.5 Decide and document internal package consumption in CLAUDE.md. Verify another workspace can import a package type
 
 ## 3. Domain package + Vitest (T-00-03)

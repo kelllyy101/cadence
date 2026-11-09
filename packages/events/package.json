@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "build": "echo \"events: no build yet\"",
-    "lint": "echo \"events: no lint yet\"",
-    "typecheck": "echo \"events: no typecheck yet\"",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit -p .",
     "test": "echo \"events: no tests yet\""
+  },
+  "devDependencies": {
+    "@cadence/config": "workspace:*"
   }
 }

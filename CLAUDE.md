@@ -69,8 +69,13 @@ Update this section as soon as real scripts exist.
 
 ## Conventions
 
-- **TypeScript:** `strict`, `noUncheckedIndexedAccess`; no `any` (use `unknown` + narrowing);
-  no non-null `!` without a comment explaining why.
+- **TypeScript:** `strict`, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`; no `any`
+  (use `unknown` + narrowing); no non-null `!` without a comment explaining why.
+- **Internal packages:** consumed as TypeScript source through `exports` (`"." : "./src/index.ts"`),
+  with no build step. Vite, Vitest and tsx read TS directly; `tsc --noEmit` typechecks.
+  Configs extend `@cadence/config/tsconfig.{base,node,react}.json`; ESLint uses the root
+  `eslint.config.js` (shared rules in `packages/config`).
+- **Tooling:** pnpm via corepack (`corepack enable`), Node 22 (`nvm use`).
 - **Boundaries:** validate every external input with zod (GraphQL args beyond SDL types,
   REST bodies, Kafka messages, env vars). Trust types only inside the boundary.
 - **Domain:** `packages/domain` is pure: no Mongo, Kafka, React, Date.now() (inject a clock),

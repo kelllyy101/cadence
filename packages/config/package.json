@@ -3,10 +3,17 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "description": "Shared TypeScript and ESLint configuration for Cadence workspaces.",
+  "exports": {
+    "./tsconfig.base.json": "./tsconfig.base.json",
+    "./tsconfig.node.json": "./tsconfig.node.json",
+    "./tsconfig.react.json": "./tsconfig.react.json",
+    "./eslint": "./eslint.config.js"
+  },
   "scripts": {
-    "build": "echo \"config: no build yet\"",
-    "lint": "echo \"config: no lint yet\"",
-    "typecheck": "echo \"config: no typecheck yet\"",
-    "test": "echo \"config: no tests yet\""
+    "lint": "eslint .",
+    "typecheck": "echo \"config: nothing to typecheck\"",
+    "build": "echo \"config: nothing to build\"",
+    "test": "echo \"config: no tests\""
   }
 }
