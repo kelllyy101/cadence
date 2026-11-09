@@ -1,0 +1,21 @@
+# Dependencies and build output
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Environment (use .env.example for documentation)
+.env
+.env.*
+!.env.example
+
+# Generated GraphQL types
+**/src/generated/
+
+# Test artefacts
+apps/web/cypress/videos/
+apps/web/cypress/screenshots/
+
+# Local tool settings
+.claude/settings.local.json
+.DS_Store
