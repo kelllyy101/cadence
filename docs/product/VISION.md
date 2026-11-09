@@ -42,7 +42,7 @@ assumption gets checked in usability sessions with other people.
 6. **The user's experience is the authority.** Energy and RPE are the user's own subjective
    ratings. The app reflects them back and doesn't judge them.
 7. **AI on request, never on health data.** The AI workout builder
-   ([EPIC-05](../epics/EPIC-05-ai-workout-builder.md)) only acts when the user asks. It works
+   ([`add-ai-workout-builder`](../../openspec/changes/add-ai-workout-builder/proposal.md)) only acts when the user asks. It works
    only from what they tell it (equipment, focus) and only picks exercises from Cadence's own
    catalogue. It never sees cycle data or workout history.
 
@@ -52,7 +52,7 @@ Users can say what equipment they have at home and what they want to train, by t
 later) or by answering a few questions. They get a short workout back: catalogue exercises
 with sets, reps and a demo link. These are **user-requested suggestions**, not a training
 plan, and they never change with cycle phase. See the
-[spec](../specs/ai-workout-builder.md) and
+[spec](../../openspec/changes/add-ai-workout-builder/specs/workout-builder/spec.md) and
 [ADR-0007](../adr/0007-llm-workout-generation-claude-api.md).
 
 ## Non-goals

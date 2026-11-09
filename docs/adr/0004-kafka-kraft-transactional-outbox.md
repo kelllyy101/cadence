@@ -26,7 +26,7 @@ microservices, and target employers run event-driven systems. So the project sho
      `publishedAt`.
 4. **Keys and topics:** every message is keyed by `userId`, which gives per-user ordering within
    a partition. Topics are defined in `packages/events`, and the naming is settled in the
-   [event pipeline spec](../specs/event-pipeline.md).
+   [event pipeline spec](../../openspec/changes/add-cycle-tracking-and-events/specs/event-pipeline/spec.md).
 5. **Consumers:**
    - They are idempotent. Each consumer records `eventId` in `processed_events` (unique
      index) in the same transaction as its side effects.

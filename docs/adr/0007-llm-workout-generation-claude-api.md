@@ -5,7 +5,7 @@
 
 ## Context
 
-EPIC-05 adds an AI workout builder. A user types (and later speaks) a request like *"I have
+The `add-ai-workout-builder` change adds an AI workout builder. A user types (and later speaks) a request like *"I have
 two kettlebells at home, give me five leg exercises"*, and gets a structured workout back. This
 needs a language model that reliably turns free text into JSON that matches our schema.
 
