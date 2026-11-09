@@ -1,44 +1,31 @@
-# 0006. Local-first: one `docker compose up`, hosting deferred
+# 0006. Local-first: `docker compose up`, hosting deferred
 
 - Status: Accepted
 - Date: 2026-09-28
 
 ## Context
 
-The hosting target is undecided. Options range from a PaaS to a VPS to k3s. The system needs
-MongoDB running as a replica set and a Kafka broker, and managed versions of both vary a lot in
-cost and setup. Reviewers and future-me need to run the whole system with minimal effort.
-Committing to a host now would shape the code around one provider's quirks.
+Hosting is undecided. The system needs a Mongo replica set and Kafka, whose managed versions
+vary in cost. Reviewers must run everything easily, and code shouldn't bend to one provider.
 
 ## Decision
 
-- The entire system runs locally with **one `docker compose up`**: Mongo (single-node replica
-  set, auto-initiated), Kafka (KRaft), a topic-init job, api, relay, insights-worker and web.
-- It follows **12-factor** config: every setting is an env var, validated with zod at startup,
-  and documented in `.env.example`.
-- There are **no host-specific APIs or SDKs** in application code: no provider-specific storage,
-  queues or secrets managers.
-- Services expose health/readiness endpoints, log to stdout as JSON, and shut down gracefully
-  on `SIGTERM`. These are portable basics for any orchestrator.
-- Dockerfiles are multi-stage and produce small runtime images (Debian slim, because
-  librdkafka needs glibc).
-- The hosting choice will be recorded in a future ADR that supersedes the "deferred" part of
-  this one.
+- Everything runs with **one `docker compose up`**: Mongo, Kafka, topic init, api, relay,
+  worker, web.
+- **12-factor config:** env vars validated with zod, documented in `.env.example`.
+- No provider-specific SDKs in app code.
+- Every service has health endpoints, JSON logs to stdout and graceful `SIGTERM` shutdown.
+- Multi-stage Debian-slim images.
+- A future ADR records the hosting choice.
 
-## Alternatives considered
+## Alternatives
 
-- **Pick a PaaS now (Render, Fly.io, Railway).** A faster public demo, but managed Kafka/Mongo
-  add cost and lock-in before the product even exists.
-- **Managed cloud services (Atlas, Confluent Cloud) for local dev.** They need network access
-  and accounts to run the project. That's a bad experience for reviewers.
-- **Kubernetes (k3s/kind) for local dev.** Heavier than needed. A Helm chart is a stretch goal
-  instead.
+- **A PaaS now:** managed Kafka and Mongo add cost and lock-in early.
+- **Cloud services for local dev:** reviewers need accounts and network.
+- **Local Kubernetes:** too heavy; a Helm chart is a stretch goal.
 
 ## Consequences
 
-- ➕ Anyone can run the full system offline. Integration tests use the same images via Testcontainers.
-- ➕ Deployment stays an open, well-documented choice.
-- ➖ There's no public demo URL until hosting is decided. The README will offer screenshots or
-  a short video in the meantime.
-- ➖ Local resource use (Kafka + Mongo) must be kept modest: cap the Kafka heap and set Mongo
-  `wiredTigerCacheSizeGB`.
+- ➕ Runs offline; Testcontainers uses the same images; hosting stays open.
+- ➖ No public demo URL yet; the README uses screenshots.
+- ➖ Keep resources modest: capped Kafka heap, small Mongo cache.
