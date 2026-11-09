@@ -36,8 +36,8 @@ passkeys, offline queue, a shared exercise list built from other users.
 ## Impact
 
 API auth routes, `workouts` model and resolvers; web auth, shell, forms, history, Cypress;
-domain pace/units/volume. Dependencies (asked per task): better-auth, mongoose, react-router,
-react-hook-form, vite-plugin-pwa, cypress, cypress-axe.
+domain pace/units/volume. Dependencies (asked per task): testcontainers, better-auth, mongoose,
+react-router, react-hook-form, react-aria-components, vite-plugin-pwa, cypress, cypress-axe.
 
 ## Depends on
 

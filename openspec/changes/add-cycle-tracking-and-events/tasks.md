@@ -56,9 +56,9 @@
 
 - [ ] 12.1 Add `processed_events` (unique `eventId`, TTL 30 d) in the same transaction as a placeholder `insights` upsert (counts only). Verify a duplicate is skipped and counted
 
-## 13. Testcontainers harness (T-02-13)
+## 13. Extend the Testcontainers harness with Kafka (T-02-13)
 
-- [ ] 13.1 Add a shared harness starting Mongo (replica set) and Kafka with healthcheck waits (ask first: testcontainers). Verify `pnpm test:int` runs a trivial transaction test
+- [ ] 13.1 Add a Kafka (KRaft) container to the shared harness from `add-workout-logging` group 1, with topic creation and healthcheck waits. Verify a test produces and consumes a keyed message
 
 ## 14. Pipeline integration tests (T-02-14)
 
