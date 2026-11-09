@@ -33,17 +33,21 @@ context: |
 
 rules:
   proposal:
+    - Keep it under 300 words. Plain words, bullets, no restated rationale.
     - State dependencies on other changes explicitly (change name and task group).
     - Always include an Out of scope list.
   specs:
+    - Requirement text is 1-2 sentences; put examples and edge cases in scenarios.
     - Write scenarios so they map one-to-one to tests named after behaviour.
     - Use synthetic examples only; never real health data.
     - Include privacy requirements (logging, export, deletion) for any capability that stores
       or transmits user data.
   design:
+    - Keep it under 500 words. Point to specs and ADRs instead of repeating them.
     - Record data shapes, GraphQL SDL sketches and collection indexes here, not in specs.
     - Link to the ADR when a decision is architecture-level, or propose a new ADR.
   tasks:
+    - One line per checkbox.
     - Each numbered group is one reviewable unit of 1-3 hours and one commit. The whole change
       is built on one branch, feature/<change-name>.
     - Put the legacy task ID in the group heading when one exists, e.g. "(T-00-01)".
