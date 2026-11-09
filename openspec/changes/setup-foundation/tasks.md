@@ -28,8 +28,8 @@
 
 ## 5. Compose: Mongo replica set (T-00-05)
 
-- [ ] 5.1 Add the `mongo` service (MongoDB 8, named volume, replica-set flags, cache cap, idempotent init healthcheck). Verify it is `healthy` within 30 s and `rs.status().ok === 1`
-- [ ] 5.2 Verify a host-side two-collection transaction commits with `MONGO_URL`, and that `docker compose down -v && up` re-initialises; record the commands in the README
+- [x] 5.1 Add the `mongo` service (MongoDB 8, named volume, replica-set flags, cache cap, idempotent init healthcheck). Verify it is `healthy` within 30 s and `rs.status().ok === 1`
+- [x] 5.2 Verify a host-side two-collection transaction commits with `MONGO_URL`, and that `docker compose down -v && up` re-initialises; record the commands in the README
 
 ## 6. Compose: Kafka KRaft (T-00-06)
 

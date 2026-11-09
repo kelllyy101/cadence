@@ -32,6 +32,9 @@ cp .env.example .env
 docker compose up   # web :5173 · api :4000/graphql
 ```
 
+Checks: `pnpm --filter @cadence/api check:mongo` (transaction on the local replica set).
+MongoDB is exposed on host port 27018 so it won't clash with a local install.
+
 ## Status
 
 🚧 Early development. Each feature is planned spec-first as an

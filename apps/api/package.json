@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit -p .",
     "test": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "check:mongo": "tsx scripts/check-mongo-transaction.ts"
   },
   "devDependencies": {
     "@cadence/config": "workspace:*",
