@@ -6,7 +6,8 @@ phase. Portfolio piece: **code quality, UX, accessibility and privacy beat featu
 
 Product: [docs/product/VISION.md](docs/product/VISION.md) ·
 Architecture: [docs/architecture/ARCHITECTURE.md](docs/architecture/ARCHITECTURE.md) ·
-Decisions: [docs/adr/](docs/adr/README.md) · Board: [docs/tasks/BOARD.md](docs/tasks/BOARD.md)
+Decisions: [docs/adr/](docs/adr/README.md) · Plans: [openspec/changes/](openspec/changes/) ·
+Roadmap: [docs/ROADMAP.md](docs/ROADMAP.md)
 
 ## Stack
 
@@ -20,7 +21,8 @@ Decisions: [docs/adr/](docs/adr/README.md) · Board: [docs/tasks/BOARD.md](docs/
 | Data | MongoDB 8 (single-node replica set) + Mongoose |
 | Events | Kafka 4 (KRaft, apache/kafka) + @confluentinc/kafka-javascript, transactional outbox ([ADR-0004](docs/adr/0004-kafka-kraft-transactional-outbox.md)) |
 | Tests | Vitest (unit), Testcontainers (integration), Cypress + cypress-axe (E2E/a11y) |
-| AI | Claude API via `@anthropic-ai/sdk` behind a `WorkoutGenerator` interface (+ fake for tests); env `WORKOUT_GENERATOR`, `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL` ([ADR-0007](docs/adr/0007-llm-workout-generation-claude-api.md), EPIC-05) |
+| AI | Claude API via `@anthropic-ai/sdk` behind a `WorkoutGenerator` interface (+ fake for tests); env `WORKOUT_GENERATOR`, `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL` ([ADR-0007](docs/adr/0007-llm-workout-generation-claude-api.md), `add-ai-workout-builder`) |
+| Planning | [OpenSpec](https://github.com/Fission-AI/OpenSpec) 1.16 (`npm i -g @fission-ai/openspec`, needs Node ≥ 22.12), spec-driven schema |
 | Ops | pino (health fields redacted), `/health`, `/metrics`, OpenFeature file provider |
 | Hosting | Undecided — everything runs via `docker compose up` ([ADR-0006](docs/adr/0006-local-first-hosting-docker-compose.md)) |
 
@@ -34,11 +36,21 @@ packages/domain       Pure logic: pace, cycle-phase estimation, aggregation (no 
 packages/events       zod event schemas, topic names, shared event types
 packages/config       Shared tsconfig + ESLint config
 scripts/              seed-demo.ts and dev utilities
-docs/                 product, architecture, adr, epics, specs, tasks
+docs/                 product (vision, backlog), architecture, adr, roadmap
+openspec/             OpenSpec: config.yaml, changes/ (planned work), specs/ (archived truth)
 .claude/agents/       Subagents (see below)
+.claude/skills, commands/opsx/  OpenSpec skills and /opsx:* slash commands
 ```
 
-## Commands (available after EPIC-00)
+## Commands
+
+```bash
+openspec list            # changes and task progress
+openspec show <change>   # read a change
+openspec validate --all --strict
+```
+
+App commands (available after `setup-foundation`):
 
 ```bash
 docker compose up        # Mongo replset + Kafka + api + worker + web
@@ -49,8 +61,8 @@ pnpm test                # Vitest unit tests
 pnpm test:int            # Testcontainers integration tests (needs Docker)
 pnpm e2e                 # Cypress + cypress-axe
 pnpm codegen             # GraphQL Code Generator
-pnpm seed:demo           # seed the demo account (EPIC-03)
-pnpm eval:workout-prompts  # manual: real Claude API prompt eval, never in CI (EPIC-05)
+pnpm seed:demo           # seed the demo account (add-training-insights)
+pnpm eval:workout-prompts  # manual: real Claude API prompt eval, never in CI (add-ai-workout-builder)
 ```
 
 Update this section as soon as real scripts exist.
@@ -94,33 +106,45 @@ Cycle data is GDPR Art. 9 special-category health data.
 
 ## Workflow rules
 
-- Work on exactly one task at a time. Read its task file and linked spec first.
-- Start each task in plan mode and show the plan before editing.
-- Before calling a task done:
+Planning and implementation follow OpenSpec (spec-driven development):
+
+- **New feature or reshape:** `/opsx:propose` (or the `change-planner` subagent) creates
+  `openspec/changes/<name>/` with proposal, specs, design and tasks. Validate with
+  `openspec validate <name> --strict`.
+- **Build:** `/opsx:apply <name>`. Read the change's proposal, specs, design and tasks first.
+- **One branch per feature (change):** `feature/<change-name>`, branched from `main`.
+- **One commit per task group** (Conventional Commits), so history shows each step. Tick the
+  group's checkboxes in `tasks.md` in the same commit.
+- Before a task group is done:
   - lint, typecheck and tests pass
   - run `code-reviewer`
   - also run `privacy-reviewer` for anything touching data, and `ux-a11y-reviewer` for UI
   - fix every must-fix
-- Update the task file status and [BOARD.md](docs/tasks/BOARD.md).
-- Suggest a conventional-commit message; one branch per task.
-- Ask before adding any new dependency, and explain why.
+- **When a change is complete:** merge the feature branch into `main`, then
+  `/opsx:archive <name>` moves its specs into `openspec/specs/` (fix any links that pointed into
+  the change folder).
+- Dependencies named "(ask first)" in a task are approved once the user asks to implement that
+  change; ask before adding any other dependency, and explain why.
 - Never commit secrets; use `.env.example`.
-- **STOP after each task and wait for review.**
+- Stop for review at the end of each change, or sooner if a decision is genuinely the user's.
 
-Task statuses: `todo` → `in-progress` → `review` → `done`.
+Progress lives in the `tasks.md` checkboxes (`openspec list` shows it).
 
 ## Subagents (`.claude/agents/`)
 
 | Agent | Use when |
 |---|---|
-| `task-planner` | Breaking an epic/spec into task files (docs only) |
-| `test-writer` | Writing tests from a task's acceptance criteria, before/alongside code |
-| `code-reviewer` | Before marking any task done: reviews the diff and runs lint/typecheck/tests |
+| `change-planner` | Turning an idea into an OpenSpec change (docs only) |
+| `test-writer` | Writing tests from a change's spec scenarios, before/alongside code |
+| `code-reviewer` | Before marking any task group done: reviews the diff and runs lint/typecheck/tests |
 | `privacy-reviewer` | Diff touches data models, events, logging, export/deletion, consent or copy about cycles |
 | `ux-a11y-reviewer` | Diff touches anything in `apps/web` users see or interact with |
 
 ## Where things live
 
-- Epics: [docs/epics/](docs/epics/) · Specs: [docs/specs/](docs/specs/) · Tasks: [docs/tasks/](docs/tasks/)
-- Task template: [docs/tasks/_TEMPLATE.md](docs/tasks/_TEMPLATE.md)
-- Stretch ideas: [docs/epics/BACKLOG.md](docs/epics/BACKLOG.md). Do not implement these without a task.
+- Planned work: [openspec/changes/](openspec/changes/) · Current truth after archive:
+  [openspec/specs/](openspec/specs/) · Rules for artifacts: [openspec/config.yaml](openspec/config.yaml)
+- Order of changes: [docs/ROADMAP.md](docs/ROADMAP.md)
+- Stretch ideas: [docs/product/BACKLOG.md](docs/product/BACKLOG.md). Do not implement these
+  without an OpenSpec change.
+- Earlier epic/spec/task files (pre-OpenSpec) are in git history before the migration commit.
