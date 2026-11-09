@@ -32,7 +32,10 @@ cp .env.example .env
 docker compose up   # web :5173 · api :4000/graphql
 ```
 
-Checks: `pnpm --filter @cadence/api check:mongo` (transaction on the local replica set).
+Checks:
+- `pnpm --filter @cadence/api check:mongo`: transaction on the local replica set.
+- `docker compose exec kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe`: topics.
+
 MongoDB is exposed on host port 27018 so it won't clash with a local install.
 
 ## Status

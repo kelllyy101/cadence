@@ -33,9 +33,9 @@
 
 ## 6. Compose: Kafka KRaft (T-00-06)
 
-- [ ] 6.1 Add the `kafka` service (apache/kafka 4.x, KRaft, capped heap, host + internal listeners). Verify it is healthy within 60 s at ≤ ~700 MB RAM
-- [ ] 6.2 Add `kafka-init` and `infra/kafka/create-topics.sh`. Verify the 4 topics exist with 3 partitions and 7-day retention, and a rerun is a no-op
-- [ ] 6.3 Verify a keyed console produce/consume works from host and container; record the commands in the README
+- [x] 6.1 Add the `kafka` service (apache/kafka 4.x, KRaft, capped heap, host + internal listeners). Verify it is healthy within 60 s at ≤ ~700 MB RAM
+- [x] 6.2 Add `kafka-init` and `infra/kafka/create-topics.sh`. Verify the 4 topics exist with 3 partitions and 7-day retention, and a rerun is a no-op
+- [x] 6.3 Verify a keyed console produce/consume works from host and container; record the commands in the README
 
 ## 7. API hello GraphQL + codegen (T-00-07)
 
