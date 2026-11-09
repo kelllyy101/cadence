@@ -66,6 +66,11 @@ export default tseslint.config(
           paths: DOMAIN_FORBIDDEN,
           patterns: [
             {
+              // Subpath imports too, e.g. react-dom/client or mongodb/lib/...
+              group: ['react*', 'mongodb/*', 'mongoose/*', 'pino/*', '@confluentinc/*'],
+              message: 'packages/domain is pure: no I/O, UI or logging libraries.',
+            },
+            {
               group: ['**/apps/**', '@cadence/web', '@cadence/api', '@cadence/insights-worker'],
               message: 'packages/domain must not depend on apps.',
             },
