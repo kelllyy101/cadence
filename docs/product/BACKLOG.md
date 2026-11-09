@@ -1,20 +1,18 @@
-# Backlog (stretch)
+# Backlog
 
-These items are **not scheduled** and have no tasks. Promote an item to an OpenSpec change
-(`/opsx:propose`, or the `change-planner` subagent), with an ADR where relevant, before any work
-starts.
+Not scheduled. Turn an item into an OpenSpec change (`/opsx:propose`) before starting.
 
-| Item | Notes / open questions |
+| Item | Notes |
 |---|---|
-| Training plans | Must stay descriptive, not "cycle-synced" prescriptions (see [VISION non-goals](../product/VISION.md#non-goals)). |
-| Strava import (OAuth + webhooks) | Needs a Strava API app, token storage (encrypted), webhook verification, and dedupe against manual logs. Strava becomes a data source, so the privacy notice needs updating. |
-| Offline logging queue | Queue mutations in IndexedDB when offline, with a client-generated idempotency key and conflict handling. Must not persist health data longer than needed. |
-| App-level encryption of cycle fields | Field-level encryption (e.g. Mongo CSFLE/Queryable Encryption, or envelope encryption in the app). Needs key management, which ties into the hosting decision. |
-| Helm chart on k3s | Charts for api, relay, worker and web. Mongo and Kafka as operators or external services. Follows the hosting ADR. |
-| GraphQL depth/complexity limits | Required before any public deployment ([ADR-0003](../adr/0003-schema-first-graphql-codegen.md)). |
-| Passkeys / OAuth sign-in | Better Auth plugins. No data-model change expected. |
-| DPIA document | A formal Data Protection Impact Assessment for Art. 9 processing. Should also cover the AI provider (`add-ai-workout-builder`). |
-| Voice input for the workout builder | Speak the request instead of typing it. Prefer server-side transcription (e.g. a local Whisper container) over the browser Web Speech API, which sends audio to Google on Chrome. The transcript feeds the existing free-text path ([`add-ai-workout-builder`](../../openspec/changes/add-ai-workout-builder/proposal.md)). |
-| Rest breaks / timers in generated workouts | Add rest periods between sets and exercises, with an accessible countdown timer (screen-reader announcements, no colour-only cues). |
-| Save a generated workout to the log | Turn a generated workout into a strength session. Needs a spec update: it would then be stored, exported and deleted like other workouts. |
-| Local LLM adapter (Ollama) | A second `WorkoutGenerator` implementation so no data leaves the machine ([ADR-0007](../adr/0007-llm-workout-generation-claude-api.md)). |
+| Training plans | Descriptive only, never cycle-synced ([non-goals](VISION.md#non-goals)). |
+| Strava import | OAuth, encrypted tokens, webhooks, dedupe; privacy notice update. |
+| Offline logging | IndexedDB queue with idempotency keys; keep health data briefly. |
+| Encrypt cycle fields | Field-level encryption; needs key management (hosting ADR). |
+| Helm chart on k3s | After the hosting ADR. |
+| GraphQL depth limits | Required before public deployment ([ADR-0003](../adr/0003-schema-first-graphql-codegen.md)). |
+| Passkeys / OAuth | Better Auth plugins. |
+| DPIA | Formal impact assessment, including the AI provider. |
+| Voice input (AI builder) | Server-side transcription (e.g. local Whisper), not the browser API that sends audio to Google. |
+| Rest timers (AI builder) | Accessible countdown between sets. |
+| Save generated workout | Becomes stored data: export and deletion apply. |
+| Local LLM adapter | Ollama behind `WorkoutGenerator` ([ADR-0007](../adr/0007-llm-workout-generation-claude-api.md)). |
