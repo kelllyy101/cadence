@@ -31,7 +31,11 @@ async function main(): Promise<void> {
 
 main().catch((error: unknown) => {
   // Startup failures: print the safe message only (EnvError never contains values).
-  const message = error instanceof EnvError ? error.message : 'API failed to start';
+  // Other failures: the error type only, since messages can quote config or input values.
+  const message =
+    error instanceof EnvError
+      ? error.message
+      : `API failed to start (${error instanceof Error ? error.name : 'unknown error'})`;
   process.stderr.write(`${message}\n`);
   process.exit(1);
 });

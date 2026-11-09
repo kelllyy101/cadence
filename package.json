@@ -1,6 +1,7 @@
 {
   "name": "cadence",
   "private": true,
+  "type": "module",
   "description": "Cycle-aware training PWA for women who run and lift.",
   "packageManager": "pnpm@12.18.0",
   "engines": {

@@ -15,7 +15,7 @@ services:
         - mongosh
         - --quiet
         - --eval
-        - "try { rs.status().ok } catch (e) { rs.initiate({ _id: 'rs0', members: [{ _id: 0, host: 'mongo:27017' }] }).ok }"
+        - "let ok; try { ok = rs.status().ok } catch (e) { ok = rs.initiate({ _id: 'rs0', members: [{ _id: 0, host: 'mongo:27017' }] }).ok } quit(ok === 1 ? 0 : 1)"
       interval: 5s
       timeout: 5s
       retries: 10

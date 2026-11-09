@@ -4,13 +4,15 @@ import type { GraphQLContext } from '../graphql/context';
 
 const MAX_BODY_BYTES = 1_000_000;
 
+class BodyTooLargeError extends Error {}
+
 async function readJsonBody(req: IncomingMessage): Promise<unknown> {
   const chunks: Buffer[] = [];
   let size = 0;
   for await (const chunk of req) {
     const buffer = chunk as Buffer;
     size += buffer.length;
-    if (size > MAX_BODY_BYTES) throw new Error('Request body too large');
+    if (size > MAX_BODY_BYTES) throw new BodyTooLargeError();
     chunks.push(buffer);
   }
   if (chunks.length === 0) return undefined;
@@ -32,9 +34,19 @@ export async function handleGraphQL(
   let body: unknown;
   try {
     body = req.method === 'POST' ? await readJsonBody(req) : undefined;
-  } catch {
-    res.writeHead(400, { 'content-type': 'application/json' });
-    res.end(JSON.stringify({ errors: [{ message: 'Invalid request body' }] }));
+  } catch (error) {
+    const tooLarge = error instanceof BodyTooLargeError;
+    res.writeHead(tooLarge ? 413 : 400, {
+      'content-type': 'application/json',
+      connection: 'close',
+    });
+    res.end(
+      JSON.stringify({
+        errors: [{ message: tooLarge ? 'Request body too large' : 'Invalid request body' }],
+      }),
+    );
+    // Stop reading an oversized upload once the 413 has been sent.
+    if (tooLarge) res.once('finish', () => req.destroy());
     return;
   }
 

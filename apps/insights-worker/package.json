@@ -16,5 +16,8 @@
     "@types/node": "^22.20.5",
     "tsx": "^4.23.15"
   },
-  "description": "Kafka consumer that recomputes per-user insights (stub)."
+  "description": "Kafka consumer that recomputes per-user insights (stub).",
+  "dependencies": {
+    "zod": "^4.6.7"
+  }
 }

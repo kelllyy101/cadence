@@ -27,9 +27,10 @@ export async function checkReadiness(
   checks: Record<string, ReadinessCheck>,
   timeoutMs = 2000,
 ): Promise<ReadinessReport> {
-  const names = Object.keys(checks);
+  const entries = Object.entries(checks);
+  const names = entries.map(([name]) => name);
   const results = await Promise.allSettled(
-    names.map((name) => withTimeout(checks[name] as ReadinessCheck, timeoutMs)),
+    entries.map(([, check]) => withTimeout(check, timeoutMs)),
   );
   const failing = names.filter((_, i) => results[i]?.status === 'rejected');
   return { ready: failing.length === 0, failing };

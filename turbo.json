@@ -2,7 +2,8 @@
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "codegen": {
-      "outputs": ["src/generated/**"]
+      "outputs": ["src/generated/**"],
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/apps/api/src/schema/**/*.graphql"]
     },
     "build": {
       "dependsOn": ["^build", "codegen"],

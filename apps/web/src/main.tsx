@@ -10,7 +10,7 @@ if (!root) throw new Error('Missing #root element');
 
 createRoot(root).render(
   <StrictMode>
-    <ApolloProvider client={createApolloClient()}>
+    <ApolloProvider client={createApolloClient(import.meta.env.VITE_API_URL)}>
       <App />
     </ApolloProvider>
   </StrictMode>,

@@ -88,6 +88,15 @@ describe('HTTP server', () => {
     expect(res.status).toBe(400);
   });
 
+  it('rejects an oversized body with 413', async () => {
+    const res = await fetch(`${baseUrl}/graphql`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ query: 'x'.repeat(1_100_000) }),
+    });
+    expect(res.status).toBe(413);
+  });
+
   it('returns 404 for unknown paths', async () => {
     expect((await fetch(`${baseUrl}/nope`)).status).toBe(404);
   });
