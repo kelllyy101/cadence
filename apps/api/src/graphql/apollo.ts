@@ -1,6 +1,7 @@
 import { ApolloServer } from '@apollo/server';
 import type { Logger } from 'pino';
 import type { GraphQLContext } from './context';
+import { formatError } from './format-error';
 import { loggingPlugin } from './logging-plugin';
 import { resolvers } from './resolvers';
 import { loadTypeDefs } from './schema';
@@ -15,6 +16,7 @@ export function createApollo(options: {
     introspection: !options.production,
     // Never send stack traces to clients.
     includeStacktraceInErrorResponses: false,
+    formatError,
     plugins: options.logger ? [loggingPlugin(options.logger)] : [],
   });
 }

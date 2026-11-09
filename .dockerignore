@@ -4,7 +4,9 @@
 **/.turbo
 **/src/generated
 .git
-.env
+**/.env
+**/.env.*
+!.env.example
 .claude
 openspec
 docs

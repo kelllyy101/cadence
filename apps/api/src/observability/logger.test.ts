@@ -42,4 +42,26 @@ describe('logger redaction', () => {
     expect(lines()).not.toContain('synthetic prompt text');
     expect(lines()).not.toContain('"rpe":9');
   });
+
+  it('redacts names and phase insights', () => {
+    const { lines, stream } = capture();
+    const log = createLogger({ level: 'info', destination: stream });
+
+    log.info({ user: { name: 'Synthetic Person' }, insights: { byPhase: { luteal: 1 } } }, 'x');
+
+    expect(lines()).not.toContain('Synthetic Person');
+    expect(lines()).not.toContain('luteal');
+  });
+
+  it('logs errors by type and code, never their message', () => {
+    const { lines, stream } = capture();
+    const log = createLogger({ level: 'info', destination: stream });
+    const err = Object.assign(new Error('dup key { email: "a@example.test" }'), { code: 11000 });
+
+    log.error({ err }, 'write failed');
+
+    expect(lines()).toContain('"type":"Error"');
+    expect(lines()).toContain('"code":"11000"');
+    expect(lines()).not.toContain('a@example.test');
+  });
 });
