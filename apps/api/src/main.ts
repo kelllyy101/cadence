@@ -1,15 +1,27 @@
+import { MongoClient } from 'mongodb';
 import { EnvError, loadEnv } from './config/env';
+import { createLogger } from './observability/logger';
 import { buildServer } from './server';
 
 async function main(): Promise<void> {
   const env = loadEnv();
-  const { server, stop } = await buildServer(env);
-  server.listen(env.API_PORT, () => {
-    process.stdout.write(`api listening on :${env.API_PORT}\n`);
+  const logger = createLogger({ level: env.LOG_LEVEL });
+  const mongo = new MongoClient(env.MONGO_URL, { serverSelectionTimeoutMS: 2000 });
+
+  const { server, stop } = await buildServer({
+    env,
+    logger,
+    readinessChecks: {
+      mongo: async () => {
+        await mongo.db('admin').command({ ping: 1 });
+      },
+    },
   });
+  server.listen(env.API_PORT, () => logger.info({ port: env.API_PORT }, 'api listening'));
 
   const shutdown = (): void => {
-    stop()
+    logger.info('shutting down');
+    Promise.all([stop(), mongo.close()])
       .then(() => process.exit(0))
       .catch(() => process.exit(1));
   };

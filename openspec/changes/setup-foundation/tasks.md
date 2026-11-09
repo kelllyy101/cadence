@@ -45,8 +45,8 @@
 
 ## 8. API health + logging (T-00-08)
 
-- [ ] 8.1 Add `GET /health` and `GET /health/ready` (Mongo ping). Verify 200 when up and 503 naming the dependency when Mongo is stopped
-- [ ] 8.2 Add pino with request ids, redact paths and a serializer that drops GraphQL variables and args (ask first: pino). Verify a log-capture unit test shows `rpe`/`notes` values never appear
+- [x] 8.1 Add `GET /health` and `GET /health/ready` (Mongo ping). Verify 200 when up and 503 naming the dependency when Mongo is stopped
+- [x] 8.2 Add pino with request ids, redact paths and a serializer that drops GraphQL variables and args (ask first: pino). Verify a log-capture unit test shows `rpe`/`notes` values never appear
 
 ## 9. Web hello (Vite + Apollo) (T-00-09)
 
