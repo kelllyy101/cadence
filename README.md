@@ -21,20 +21,23 @@ This portfolio project is built to show:
 
 ## Status
 
-🚧 Early development. See the [task board](docs/tasks/BOARD.md).
+🚧 Early development. Work is planned spec-first with [OpenSpec](https://github.com/Fission-AI/OpenSpec):
+each feature is a change in [`openspec/changes/`](openspec/changes/) with a proposal, specs
+(requirements + scenarios), a design and a task list. Run `openspec list` for live progress, and
+see the [roadmap](docs/ROADMAP.md) for the order.
 
-| Epic | Status |
-|---|---|
-| [EPIC-00 Foundation](docs/epics/EPIC-00-foundation.md) | Not started |
-| [EPIC-01 Workout logging](docs/epics/EPIC-01-workout-logging.md) | Not started |
-| [EPIC-02 Cycle tracking + events](docs/epics/EPIC-02-cycle-tracking-events.md) | Not started |
-| [EPIC-03 Insights + demo](docs/epics/EPIC-03-insights-demo.md) | Not started |
-| [EPIC-04 Trust + polish](docs/epics/EPIC-04-trust-polish.md) | Not started |
-| [EPIC-05 AI workout builder](docs/epics/EPIC-05-ai-workout-builder.md) | Planned |
+| # | Change | Status |
+|---|---|---|
+| 1 | [setup-foundation](openspec/changes/setup-foundation/proposal.md) | Not started |
+| 2 | [add-workout-logging](openspec/changes/add-workout-logging/proposal.md) | Not started |
+| 3 | [add-cycle-tracking-and-events](openspec/changes/add-cycle-tracking-and-events/proposal.md) | Not started |
+| 4 | [add-training-insights](openspec/changes/add-training-insights/proposal.md) | Not started |
+| 5 | [add-ai-workout-builder](openspec/changes/add-ai-workout-builder/proposal.md) | Not started |
+| 6 | [add-data-rights-and-polish](openspec/changes/add-data-rights-and-polish/proposal.md) | Not started |
 
 ## Local setup
 
-_Placeholder. It will be completed in EPIC-00._
+_Placeholder. It will be completed in `setup-foundation`._
 
 ```bash
 # Requires Docker, Node 22, pnpm
@@ -76,11 +79,11 @@ Details: [ARCHITECTURE.md § Privacy design](docs/architecture/ARCHITECTURE.md#p
 | Integration | Testcontainers (real MongoDB + Kafka) | Outbox → relay → worker, idempotency, deletion propagation |
 | E2E + a11y | Cypress + cypress-axe | Key user journeys, with axe checks on every page |
 
-_Coverage and CI badges will be added in EPIC-00/EPIC-04._
+_Coverage and CI badges will be added in `setup-foundation` / `add-data-rights-and-polish`._
 
 ## Usability findings
 
-_Placeholder. It will be completed in EPIC-04._ The plan is a moderated think-aloud pilot
+_Placeholder. It will be completed in `add-data-rights-and-polish`._ The plan is a moderated think-aloud pilot
 (5 participants) followed by an unmoderated remote round. The metrics are task success, time on
 task, SEQ and SUS. Findings and the design changes they led to will be summarised here.
 
@@ -98,7 +101,7 @@ task, SEQ and SUS. Findings and the design changes they led to will be summarise
 
 ## Roadmap
 
-These stretch items are not scheduled yet ([BACKLOG](docs/epics/BACKLOG.md)):
+These stretch items are not scheduled yet ([BACKLOG](docs/product/BACKLOG.md)):
 
 - training plans
 - Strava import

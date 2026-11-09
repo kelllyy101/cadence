@@ -1,6 +1,6 @@
 # Architecture — Cadence
 
-Status: draft (pre-EPIC-00). Decisions referenced here are recorded in [docs/adr](../adr/README.md).
+Status: draft (pre-implementation). Decisions referenced here are recorded in [docs/adr](../adr/README.md).
 
 ## Components
 
@@ -9,7 +9,7 @@ Status: draft (pre-EPIC-00). Decisions referenced here are recorded in [docs/adr
 | `apps/web` | React + Vite installable PWA. Mobile-first UI, Apollo Client, forms (react-hook-form + zod), charts (Recharts) with table alternatives. |
 | `apps/api` | Apollo Server (schema-first GraphQL) and Better Auth routes. Writes domain changes and outbox events in one Mongo transaction. REST only for `GET /export`, `GET /health` and `GET /metrics`. Also hosts the **outbox relay**, a separate process entry point from the same package. |
 | outbox relay | Polls/streams the `outbox` collection, publishes to Kafka keyed by `userId`, then marks rows as published. Runs as its own container (`api` image, different command) so it scales and fails independently. |
-| workout generator (in `apps/api`) | `WorkoutGenerator` interface behind the `generateWorkout` mutation. The Anthropic adapter calls the Claude API with structured output, constrained to catalogue exercise IDs. A deterministic fake is used for tests and E2E. Stateless: nothing is persisted. See [ADR-0007](../adr/0007-llm-workout-generation-claude-api.md) and the [spec](../specs/ai-workout-builder.md). |
+| workout generator (in `apps/api`) | `WorkoutGenerator` interface behind the `generateWorkout` mutation. The Anthropic adapter calls the Claude API with structured output, constrained to catalogue exercise IDs. A deterministic fake is used for tests and E2E. Stateless: nothing is persisted. See [ADR-0007](../adr/0007-llm-workout-generation-claude-api.md) and the [spec](../../openspec/changes/add-ai-workout-builder/specs/workout-builder/spec.md). |
 | `apps/insights-worker` | Kafka consumer. Dedupes by `eventId`, recomputes per-user insights **from source data**, and handles deletion. |
 | `packages/domain` | Pure functions: pace, unit conversion, cycle-phase estimation, aggregation by phase/week, the exercise catalogue and generated-workout validation. No I/O. |
 | Claude API (external) | The only external processor. It receives the workout-builder prompt text, equipment/focus/count and candidate exercise IDs, and nothing else. |
@@ -104,7 +104,7 @@ sequenceDiagram
   recomputes insights from **current source data**, not by applying deltas, so the result
   converges to the right answer even if events are reordered or replayed.
 - **Thin events:** payloads carry IDs and non-sensitive metadata, never health values (see
-  [event-pipeline spec](../specs/event-pipeline.md)). The worker reads what it needs from Mongo.
+  [event-pipeline spec](../../openspec/changes/add-cycle-tracking-and-events/specs/event-pipeline/spec.md)). The worker reads what it needs from Mongo.
 
 ## Data model sketch
 
@@ -154,9 +154,9 @@ Cycle data is GDPR Article 9 special-category data. Explicit consent is the lawf
   re-consent before any new cycle writes.
 - **Withdrawal:** in one transaction, delete `cycle_entries`, append a `granted:false` consent
   record, and write a `cycle.data_deleted` outbox event. The worker then drops `byPhase`.
-  See [cycle spec](../specs/cycle-tracking-consent.md).
+  See [cycle spec](../../openspec/changes/add-cycle-tracking-and-events/specs/cycle-consent/spec.md).
 - **Account deletion:** `user.deletion_requested` fans out to every consumer that holds derived
-  data. See [export/deletion spec](../specs/data-export-deletion.md).
+  data. See [export/deletion spec](../../openspec/changes/add-data-rights-and-polish/specs/account-deletion/spec.md).
 - **Logging:**
   - Redaction runs through pino `redact` paths, plus a serializer that drops GraphQL `variables`
     and resolver args entirely.
@@ -167,7 +167,7 @@ Cycle data is GDPR Article 9 special-category data. Explicit consent is the lawf
   - We don't store bleed length, symptoms or contraception type in the MVP.
   - There is no third-party analytics, fonts or CDNs; everything is self-hosted in the bundle.
   - The AI workout builder sends no identifiers, history or cycle data to the provider, and
-    keeps no prompts or results ([spec § Privacy](../specs/ai-workout-builder.md#privacy)).
+    keeps no prompts or results ([spec § Privacy](../../openspec/changes/add-ai-workout-builder/specs/workout-builder/spec.md)).
 - **Client storage:** the service worker caches the app shell only. GraphQL responses holding
   health data are not persisted to Cache Storage or localStorage.
 
@@ -183,7 +183,7 @@ Cycle data is GDPR Article 9 special-category data. Explicit consent is the lawf
 
 The OpenFeature SDK uses a file-based provider that reads `flags.json`. It is evaluated server
 side, and the flag values the client needs are exposed through a GraphQL `flags` query. The first
-flag is `insights.enabled` (EPIC-03). `workoutBuilder.enabled` (EPIC-05) defaults to `false`.
+flag is `insights.enabled` (`add-training-insights`). `workoutBuilder.enabled` (`add-ai-workout-builder`) defaults to `false`.
 
 ## Configuration
 

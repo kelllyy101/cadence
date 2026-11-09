@@ -21,7 +21,7 @@ locally in Docker too.
 - The GraphQL context resolves the session from the cookie. Resolvers get a typed
   `ctx.user | null`.
 - Better Auth's collections are included in export and deletion
-  ([spec](../specs/data-export-deletion.md)).
+  ([spec](../../openspec/changes/add-data-rights-and-polish/specs/account-deletion/spec.md)).
 - Email verification and password reset need an email transport. Locally we'll use a
   dev mail catcher, or log the link in dev only (never in prod). This is decided in T-01-01.
 
