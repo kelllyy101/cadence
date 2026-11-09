@@ -1,70 +1,40 @@
-# 0007. Natural-language workout generation via the Claude API
+# 0007. Workout generation via the Claude API
 
 - Status: Proposed
 - Date: 2026-11-09
 
 ## Context
 
-The `add-ai-workout-builder` change adds an AI workout builder. A user types (and later speaks) a request like *"I have
-two kettlebells at home, give me five leg exercises"*, and gets a structured workout back. This
-needs a language model that reliably turns free text into JSON that matches our schema.
-
-Forces:
-- **Privacy is a core product value.** The vision promises no third-party analytics or data
-  sharing, and minimal processors ([VISION](../product/VISION.md)).
-- **Local-first:** everything must run with `docker compose up`
-  ([ADR-0006](0006-local-first-hosting-docker-compose.md)).
-- **Reliability:** the output must validate against a strict schema and use catalogue IDs only.
-- **Portfolio value:** a clean, testable LLM integration is worth showing. So are honest
-  trade-offs.
+The [AI workout builder](../../openspec/changes/add-ai-workout-builder/proposal.md) turns
+requests like *"two kettlebells, five leg exercises"* into a structured workout. That needs a
+model that reliably produces schema-valid JSON, without weakening the privacy promises
+([VISION](../product/VISION.md)) or local-first setup
+([ADR-0006](0006-local-first-hosting-docker-compose.md)).
 
 ## Decision
 
-- Call the **Claude API** server-side from `apps/api` through the official `@anthropic-ai/sdk`.
-  The browser never talks to the provider and never sees the key.
-- Hide it behind a `WorkoutGenerator` interface with two implementations: `AnthropicWorkoutGenerator`
-  and `FakeWorkoutGenerator` (deterministic, for tests, E2E and offline dev). Choose with the
-  `WORKOUT_GENERATOR` env var.
-- Use **structured output** (a JSON schema) and validate the result again with zod. The model
-  chooses only from catalogue IDs we send it. Names, cues and video URLs always come from our
-  catalogue.
-- Default model: `claude-sonnet-5-5`, overridable with `ANTHROPIC_MODEL`.
-- **Data minimisation:**
-  - Send only the prompt text, the equipment/focus/count and the candidate exercises.
-  - Never send identifiers, history or cycle data.
-  - Don't persist prompts or results.
-  - Redact prompts from logs.
-- Anthropic becomes a named **processor** for this feature only. This is disclosed in the
-  privacy notice and next to the input.
+- Call the **Claude API** server-side via `@anthropic-ai/sdk`; the browser never sees the key.
+- Behind a `WorkoutGenerator` interface with a deterministic fake for tests and offline dev
+  (`WORKOUT_GENERATOR=anthropic|fake`).
+- **Structured output**, re-validated with zod. The model only picks catalogue IDs; names, cues
+  and media come from our catalogue.
+- Model `claude-sonnet-5-5`, overridable via `ANTHROPIC_MODEL`.
+- **Minimal data:** send request text, equipment/focus/count and candidates only. No IDs,
+  history or cycle data. Nothing stored; prompts redacted from logs.
+- Anthropic is disclosed as a processor for this feature.
 
-## Alternatives considered
+## Alternatives
 
-- **Local model via Ollama in docker compose:** nothing leaves the machine, which fits the
-  privacy story best. But it's a heavy container for a laptop dev setup, its schema-following
-  is less reliable, and responses on CPU are slow. The `WorkoutGenerator` interface keeps this
-  open as a later adapter.
-- **Pluggable from day one (Claude + Ollama):** more flexible, but it doubles the integration
-  and eval work before we know the feature is useful. The interface already allows it, so it's
-  deferred.
-- **No LLM: rule-based parsing plus deterministic selection:** cheap and private, but it can't
-  handle real natural language ("2 kbs and a step, quick leg thing"). The guided-questions path
-  may still use this later (open question in the spec).
-- **Calling the provider from the browser:** it exposes the API key and bypasses our auth,
-  rate limits and redaction. Rejected.
+- **Local model (Ollama):** most private, but heavy on a laptop and less reliable at JSON. The
+  interface leaves room for it later.
+- **Both from day one:** doubles the work before the feature is proven.
+- **Rules, no LLM:** can't handle real language; may still serve the guided path.
+- **Browser calls the provider:** exposes the key and skips auth and redaction.
 
 ## Consequences
 
-- ➕ Reliable natural-language → JSON with little code, and a clear, testable boundary.
-- ➕ CI never depends on the provider (the fake generator), so there are no flaky or costly
-  tests.
-- ➖ It's the first external processor. Users may type health details anyway: we mitigate with
-  UI copy, redaction and non-storage, but can't fully prevent it.
-- ➖ It costs money per request and the feature needs network access. Mitigations: a per-user
-  rate limit, the feature flag `workoutBuilder.enabled`, and short prompts.
-- ➖ The model can misbehave (off-topic, prompt injection). Mitigations: catalogue-only IDs,
-  zod validation, one retry, then a typed error.
-- **Follow-up:**
-  - Add `@anthropic-ai/sdk` in T-05-03, asking at that point per the project rules.
-  - Add the `ANTHROPIC_*` vars to `.env.example`.
-  - Update the privacy notice.
-  - Add a DPIA note (backlog) if the project goes public.
+- ➕ Reliable text-to-JSON with little code; CI never calls the provider.
+- ➖ First external processor; users may still type health details (mitigated by UI copy,
+  redaction and no storage).
+- ➖ Per-request cost: rate limit, feature flag, 500-character cap.
+- ➖ Model misbehaviour: catalogue-only IDs, validation, one retry, typed error.

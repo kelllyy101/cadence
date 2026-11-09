@@ -2,50 +2,41 @@
 
 ## Why
 
-Privacy promises only count if they're verifiable. Users need to take all their data with them
-and delete everything, including derived copies held by the worker. Tests have to enforce that
-health data never reaches logs, and operators need metrics to see when the pipeline is unhealthy.
-The product also needs a full accessibility pass and real usability testing before it's
-portfolio-ready.
+Privacy promises only count if they're verifiable: users must be able to export everything and
+delete everything, including derived copies, and tests must prove health data never reaches
+logs. The app also needs an accessibility pass and real usability testing.
 
 ## What Changes
 
-- `GET /export`: streamed, versioned JSON of everything held about the user, plus the export UI.
-- `requestAccountDeletion`: transactional primary deletion, `user.deletion_requested` fan-out,
-  `deletion_requests` tracking and reconciliation, and an accessible deletion UI.
-- Redaction audit: pino redact paths, a GraphQL error formatter and a log-capture test suite.
-- `/metrics` with Prometheus metrics and no per-user labels.
-- WCAG 2.2 AA pass (automated + manual screen readers) and Cypress coverage of key journeys.
-- Usability test plan, a moderated pilot and an unmoderated round, with fixes.
-- Final README with screenshots, demo GIF, badges and findings.
+- `GET /export`: streamed, versioned JSON, plus export UI.
+- `requestAccountDeletion`: atomic primary deletion, `user.deletion_requested` fan-out,
+  tracking, reconciliation and an accessible UI.
+- Redaction audit with a log-capture test suite and a safe error formatter.
+- Prometheus `/metrics` with no per-user labels.
+- WCAG 2.2 AA pass and Cypress coverage of key journeys.
+- Usability plan, moderated pilot, unmoderated round, fixes.
+- Final README with screenshots and findings.
 
 ## Capabilities
 
 ### New Capabilities
-- `data-export`: a complete, portable export of the user's data.
-- `account-deletion`: erasure that reaches every store holding the user's data.
-- `log-redaction`: guarantees that health and personal data never appear in logs or errors.
-- `service-metrics`: Prometheus metrics for request, outbox and consumer health without per-user
-  labels.
+- `data-export`: complete, portable export.
+- `account-deletion`: erasure reaching every store.
+- `log-redaction`: tests guaranteeing no health or personal data in logs or errors.
+- `service-metrics`: request and pipeline metrics without per-user labels.
 
 ### Modified Capabilities
 - None.
 
 ## Out of scope
 
-- A hosting decision (future ADR).
-- A formal DPIA (backlog).
-- Localisation.
+Hosting decision, formal DPIA, localisation.
 
 ## Impact
 
-- `apps/api`: export route, deletion mutation, metrics, error formatter, reconciliation job.
-- `apps/insights-worker`: deletion handler, `deleted_users` marker.
-- `apps/web`: Settings → Your data.
-- `docs/research/`: usability plan and findings.
-- New dependencies (asked per task): prom-client.
+API export, deletion, metrics, error formatter, reconciliation; worker deletion handler; web
+Settings → Your data; `docs/research/`. Dependency (asked per task): prom-client.
 
 ## Depends on
 
-- `add-training-insights` (all data stores exist).
-- `add-ai-workout-builder` stores nothing, but its prompt redaction is covered by the audit.
+`add-training-insights` and `add-ai-workout-builder`.

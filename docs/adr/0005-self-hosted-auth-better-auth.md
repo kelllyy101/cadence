@@ -1,47 +1,31 @@
-# 0005. Self-hosted authentication with Better Auth
+# 0005. Self-hosted auth with Better Auth
 
 - Status: Accepted
 - Date: 2026-09-28
 
 ## Context
 
-Users need accounts. The app stores special-category health data, so we want:
-
-- as few processors (third parties) as possible
-- identity data in the same store and region as everything else
-- no vendor-hosted user profiles that would complicate export and deletion
-
-Hosting is undecided ([ADR-0006](0006-local-first-hosting-docker-compose.md)), so auth must run
-locally in Docker too.
+The app stores special-category health data, so identity should stay in our own database with
+no extra processors, and run locally in Docker
+([ADR-0006](0006-local-first-hosting-docker-compose.md)).
 
 ## Decision
 
-- Use **Better Auth**, self-hosted inside `apps/api` with its **MongoDB adapter**.
-- MVP sign-in is **email + password**. Sessions use HTTP-only, `Secure`, `SameSite=Lax` cookies.
-- The GraphQL context resolves the session from the cookie. Resolvers get a typed
-  `ctx.user | null`.
-- Better Auth's collections are included in export and deletion
-  ([spec](../../openspec/changes/add-data-rights-and-polish/specs/account-deletion/spec.md)).
-- Email verification and password reset need an email transport. Locally we'll use a
-  dev mail catcher, or log the link in dev only (never in prod). This is decided in T-01-01.
+- **Better Auth** inside `apps/api` with the **MongoDB adapter**; email + password for the MVP.
+- HTTP-only, `Secure`, `SameSite=Lax` session cookies; the GraphQL context gets `ctx.user | null`.
+- Auth collections are included in export and deletion.
+- Dev email: a mail catcher, or links logged in dev only.
 
-## Alternatives considered
+## Alternatives
 
-- **Auth0 / Clerk / Cognito / Firebase Auth.** Quick to set up, but they add a third-party
-  processor holding user identities, need network access for local dev, and have pricing and
-  lock-in concerns.
-- **Lucia.** Deprecated as a library. It's now a learning resource.
-- **Hand-rolled sessions (bcrypt/argon2 + cookies).** Full control, but security-sensitive
-  code is easy to get subtly wrong. Not a good use of portfolio time.
-- **Passport.js.** Mature, but low-level and callback-heavy. We'd still build session storage and
-  flows ourselves.
+- **Auth0 / Clerk / Cognito / Firebase:** a third party holds identities; needs network for dev.
+- **Lucia:** deprecated as a library.
+- **Hand-rolled sessions:** easy to get subtly wrong.
+- **Passport.js:** low-level; we'd still build sessions.
 
 ## Consequences
 
-- ➕ All user data stays in one database under our control, and export/deletion are straightforward.
-- ➕ It works offline and locally with `docker compose up`.
-- ➖ We own security-relevant config: rate limiting, secret rotation, cookie settings, CSRF
-  posture. We'll review this with `code-reviewer` in T-01-01.
-- ➖ Better Auth's API and adapter surface is newer than the incumbents'. Pin versions and
-  verify adapter behaviour with an integration test.
-- Follow-up: passkeys or OAuth sign-in can come later without changing the data model.
+- ➕ All user data in one database; simple export and deletion; works offline.
+- ➖ We own security config (rate limits, secrets, cookies, CSRF); reviewed with `code-reviewer`.
+- ➖ Newer library: pin versions and integration-test the adapter.
+- Passkeys or OAuth can follow without data-model changes.
