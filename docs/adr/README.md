@@ -12,5 +12,6 @@ supersedes them.
 | [0005](0005-self-hosted-auth-better-auth.md) | Self-hosted auth with Better Auth | Accepted |
 | [0006](0006-local-first-hosting-docker-compose.md) | Local-first: `docker compose up`, hosting deferred | Accepted |
 | [0007](0007-llm-workout-generation-claude-api.md) | Workout generation via the Claude API | Proposed |
+| [0008](0008-styling-css-modules-react-aria.md) | Styling with CSS Modules and React Aria | Accepted |
 
 **Template:** `# NNNN. Title` · Status · Date · Context · Decision · Alternatives · Consequences.

@@ -17,7 +17,7 @@ lift, with optional cycle tracking to see how effort and energy line up with eac
 
 ## Stack
 
-React + Vite PWA · Apollo GraphQL · MongoDB · Kafka (KRaft) · Better Auth · Claude API ·
+React + Vite PWA (CSS Modules, React Aria) · Apollo GraphQL · MongoDB · Kafka (KRaft) · Better Auth · Claude API ·
 TypeScript (strict) · pnpm + Turborepo · Vitest, Testcontainers, Cypress + axe.
 
 [Architecture](docs/architecture/ARCHITECTURE.md) · [Decisions (ADRs)](docs/adr/README.md) ·
