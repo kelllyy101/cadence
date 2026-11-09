@@ -39,9 +39,9 @@
 
 ## 7. API hello GraphQL + codegen (T-00-07)
 
-- [ ] 7.1 Add Apollo Server to `apps/api` with a schema-first `hello` query (ask first: @apollo/server, graphql). Verify a curl to `/graphql` returns the greeting
-- [ ] 7.2 Add GraphQL Code Generator and `pnpm codegen` producing typed resolvers (ask first). Verify a resolver type error fails `pnpm typecheck`
-- [ ] 7.3 Add a zod env schema with fail-fast startup. Verify the API exits with a message naming a missing `MONGO_URL`
+- [x] 7.1 Add Apollo Server to `apps/api` with a schema-first `hello` query (ask first: @apollo/server, graphql). Verify a curl to `/graphql` returns the greeting
+- [x] 7.2 Add GraphQL Code Generator and `pnpm codegen` producing typed resolvers (ask first). Verify a resolver type error fails `pnpm typecheck`
+- [x] 7.3 Add a zod env schema with fail-fast startup. Verify the API exits with a message naming a missing `MONGO_URL`
 
 ## 8. API health + logging (T-00-08)
 
