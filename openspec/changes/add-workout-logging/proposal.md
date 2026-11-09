@@ -15,6 +15,7 @@ must take under 15 seconds. She also needs a private account and a history she c
 - Log strength sessions (exercises, sets, reps, optional weight) with fast set entry.
 - History with detail, edit and delete.
 - Domain: pace, units, strength volume.
+- A plain-language privacy notice linked from sign-up and Settings.
 - Cypress + axe with a sign-up → log run → history journey.
 
 ## Capabilities

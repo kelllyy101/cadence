@@ -87,6 +87,12 @@
 - [ ] 17.2 Add the sign-up → log run → see it in History journey at 390×844. Verify it passes with no serious or critical axe violations
 - [ ] 17.3 Add a keyboard-only log-run test. Verify it completes without pointer events
 
+
+## 18. Privacy notice page
+
+- [ ] 18.1 Add `/privacy` with plain-language copy (what's collected, why, no third parties except the AI provider, export and deletion rights) linked from sign-up and Settings. Verify the links work and `privacy-reviewer` approves the copy
+- [ ] 18.2 Verify axe passes on `/privacy` in the E2E suite
+
 ## Workflow follow-up
 
 - Archive this change once every group is merged and the spec scenarios pass.
