@@ -79,8 +79,9 @@ export default tseslint.config(
     },
   },
   {
+    // Tests may read real time (e.g. to check systemClock) and print diagnostics.
     files: ['**/*.test.ts', '**/*.test.tsx', '**/*.int.test.ts', 'scripts/**'],
-    rules: { 'no-console': 'off' },
+    rules: { 'no-console': 'off', 'no-restricted-syntax': 'off' },
   },
   prettier,
 );

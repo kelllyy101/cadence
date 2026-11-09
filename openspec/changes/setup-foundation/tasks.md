@@ -13,12 +13,12 @@
 - [x] 2.2 Add shared ESLint flat config with typescript-eslint, react-hooks, jsx-a11y and prettier compat (ask first). Verify a temporary `any` fixture errors, then remove it
 - [x] 2.3 Add the `packages/domain` import restriction. Verify a temporary `import mongoose` fixture errors, then remove it
 - [x] 2.4 Add Prettier and `pnpm format` / `format:check`. Verify `format:check` fails on a misformatted file
-- [ ] 2.5 Decide and document internal package consumption in CLAUDE.md. Verify another workspace can import a package type
+- [x] 2.5 Decide and document internal package consumption in CLAUDE.md. Verify another workspace can import a package type
 
 ## 3. Domain package + Vitest (T-00-03)
 
-- [ ] 3.1 Add `packages/domain` with `Clock` and `systemClock`; add vitest + @vitest/coverage-v8 (ask first). Verify `clock.test.ts` passes via `pnpm test`
-- [ ] 3.2 Enable coverage reporting (no threshold yet). Verify `pnpm test -- --coverage` writes `coverage/` (git-ignored)
+- [x] 3.1 Add `packages/domain` with `Clock` and `systemClock`; add vitest + @vitest/coverage-v8 (ask first). Verify `clock.test.ts` passes via `pnpm test`
+- [x] 3.2 Enable coverage reporting (no threshold yet). Verify `pnpm test -- --coverage` writes `coverage/` (git-ignored)
 
 ## 4. Events package skeleton (T-00-04)
 
