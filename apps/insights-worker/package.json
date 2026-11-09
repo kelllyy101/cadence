@@ -1,0 +1,12 @@
+{
+  "name": "@cadence/insights-worker",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo \"insights-worker: no build yet\"",
+    "lint": "echo \"insights-worker: no lint yet\"",
+    "typecheck": "echo \"insights-worker: no typecheck yet\"",
+    "test": "echo \"insights-worker: no tests yet\""
+  }
+}

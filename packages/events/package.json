@@ -1,0 +1,12 @@
+{
+  "name": "@cadence/events",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo \"events: no build yet\"",
+    "lint": "echo \"events: no lint yet\"",
+    "typecheck": "echo \"events: no typecheck yet\"",
+    "test": "echo \"events: no tests yet\""
+  }
+}

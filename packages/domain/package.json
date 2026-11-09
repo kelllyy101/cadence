@@ -1,0 +1,12 @@
+{
+  "name": "@cadence/domain",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo \"domain: no build yet\"",
+    "lint": "echo \"domain: no lint yet\"",
+    "typecheck": "echo \"domain: no typecheck yet\"",
+    "test": "echo \"domain: no tests yet\""
+  }
+}

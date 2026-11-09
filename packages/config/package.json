@@ -1,0 +1,12 @@
+{
+  "name": "@cadence/config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo \"config: no build yet\"",
+    "lint": "echo \"config: no lint yet\"",
+    "typecheck": "echo \"config: no typecheck yet\"",
+    "test": "echo \"config: no tests yet\""
+  }
+}

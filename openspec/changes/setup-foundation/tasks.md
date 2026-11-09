@@ -2,10 +2,10 @@
 
 ## 1. Monorepo scaffold (T-00-01)
 
-- [ ] 1.1 Add root `package.json` (`packageManager`, scripts `dev|build|lint|typecheck|test|test:int|e2e|codegen`), `pnpm-workspace.yaml`, `turbo.json`, `.npmrc`, `.editorconfig`; add `turbo` (dev, ask first). Verify `pnpm install` completes with no missing-workspace warnings
-- [ ] 1.2 Add placeholder `package.json` for `apps/{web,api,insights-worker}` and `packages/{domain,events,config}`. Verify `pnpm turbo run build lint typecheck test` exits 0
-- [ ] 1.3 Extend `.gitignore` (`.env`, `node_modules`, `dist`, `coverage`, generated GraphQL) and confirm `.nvmrc` pins 22. Verify with `git status` after creating those paths
-- [ ] 1.4 Add `.env.example` with a comment and non-secret placeholder per variable. Verify by reading it
+- [x] 1.1 Add root `package.json` (`packageManager`, scripts `dev|build|lint|typecheck|test|test:int|e2e|codegen`), `pnpm-workspace.yaml`, `turbo.json`, `.npmrc`, `.editorconfig`; add `turbo` (dev, ask first). Verify `pnpm install` completes with no missing-workspace warnings
+- [x] 1.2 Add placeholder `package.json` for `apps/{web,api,insights-worker}` and `packages/{domain,events,config}`. Verify `pnpm turbo run build lint typecheck test` exits 0
+- [x] 1.3 Extend `.gitignore` (`.env`, `node_modules`, `dist`, `coverage`, generated GraphQL) and confirm `.nvmrc` pins 22. Verify with `git status` after creating those paths
+- [x] 1.4 Add `.env.example` with a comment and non-secret placeholder per variable. Verify by reading it
 
 ## 2. Shared config: tsconfig, ESLint, Prettier (T-00-02)
 
