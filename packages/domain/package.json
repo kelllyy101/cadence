@@ -1,0 +1,20 @@
+{
+  "name": "@cadence/domain",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo \"domain: no build yet\"",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@cadence/config": "workspace:*"
+  },
+  "description": "Pure Cadence domain logic: no I/O, frameworks, logging or system time.",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}

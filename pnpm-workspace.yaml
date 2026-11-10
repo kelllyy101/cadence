@@ -1,0 +1,8 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+# Install scripts are blocked by default; allow only what's needed.
+allowBuilds:
+  esbuild: true # binary used by tsx
+  '@apollo/protobufjs': false # postinstall not needed

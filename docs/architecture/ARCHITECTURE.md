@@ -6,7 +6,7 @@ Decisions are recorded in [docs/adr](../adr/README.md).
 
 | Component | Role |
 |---|---|
-| `apps/web` | React + Vite PWA, Apollo Client, accessible charts. |
+| `apps/web` | React + Vite PWA, Apollo Client, CSS Modules + React Aria ([ADR-0008](../adr/0008-styling-css-modules-react-aria.md)), accessible charts. |
 | `apps/api` | Apollo GraphQL + Better Auth. Writes data and outbox events in one transaction. REST for `/export`, `/health`, `/metrics`. |
 | outbox relay | Separate process from the api image. Publishes unpublished outbox rows to Kafka, keyed by `userId`. |
 | workout generator | In `apps/api`. Calls the Claude API, which may only pick catalogue exercise IDs; a fake is used in tests. Stores nothing ([ADR-0007](../adr/0007-llm-workout-generation-claude-api.md)). |

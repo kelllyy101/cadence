@@ -17,7 +17,7 @@ lift, with optional cycle tracking to see how effort and energy line up with eac
 
 ## Stack
 
-React + Vite PWA · Apollo GraphQL · MongoDB · Kafka (KRaft) · Better Auth · Claude API ·
+React + Vite PWA (CSS Modules, React Aria) · Apollo GraphQL · MongoDB · Kafka (KRaft) · Better Auth · Claude API ·
 TypeScript (strict) · pnpm + Turborepo · Vitest, Testcontainers, Cypress + axe.
 
 [Architecture](docs/architecture/ARCHITECTURE.md) · [Decisions (ADRs)](docs/adr/README.md) ·
@@ -25,12 +25,21 @@ TypeScript (strict) · pnpm + Turborepo · Vitest, Testcontainers, Cypress + axe
 
 ## Run it
 
-Requires Docker, Node 22 and pnpm.
+Requires Docker. About 1 GB of RAM; first build takes a few minutes.
 
 ```bash
 cp .env.example .env
-docker compose up   # web :5173 · api :4000/graphql
+docker compose up --wait   # web http://localhost:5173 · api http://localhost:4000/graphql
+docker compose down        # stop (add -v to reset data)
 ```
+
+For local development without containers: Node 22, `corepack enable`, `pnpm install`, `pnpm dev`.
+
+Checks:
+- `pnpm --filter @cadence/api check:mongo`: transaction on the local replica set.
+- `docker compose exec kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe`: topics.
+
+MongoDB is exposed on host port 27018 so it won't clash with a local install.
 
 ## Status
 

@@ -15,8 +15,8 @@ server; derived values computed only in `packages/domain`.
 ## Decisions
 
 - **Auth:** Better Auth with the MongoDB adapter inside `apps/api`. The GraphQL context resolves
-  the session cookie into a typed `ctx.user | null`. Email transport: a dev mail catcher, or log
-  links in dev only (decide in group 1).
+  the session cookie into a typed `ctx.user | null`. Email: verification and reset links are
+  logged to the API console in development only, never in production (no mail container).
 - **Storage:** one `workouts` collection with a Mongoose `kind` discriminator. Index
   `{ userId: 1, performedAt: -1, _id: -1 }` for pagination.
 - **Domain:**
@@ -56,6 +56,14 @@ server; derived values computed only in `packages/domain`.
   `aria-live` region.
 - **Delete undo:** client-side; the mutation is delayed 5 s and cancelled on Undo. Hard delete.
 - **Duplicate submit:** button disabled while in flight; no server dedupe in the MVP.
+
+- **Styling:** CSS Modules and design tokens; React Aria Components for the segmented RPE and
+  energy controls, the delete dialog and toasts
+  ([ADR-0008](../../../docs/adr/0008-styling-css-modules-react-aria.md)).
+- **E2E:** Cypress runs in the official `cypress/included` Docker image against the Compose
+  stack, so no system libraries or sudo are needed; CI uses the same image.
+- **Integration tests:** a shared Testcontainers harness (group 1) with a Mongo replica set;
+  `add-cycle-tracking-and-events` adds Kafka to it.
 
 ## Risks / Trade-offs
 

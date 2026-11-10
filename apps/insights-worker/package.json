@@ -1,0 +1,23 @@
+{
+  "name": "@cadence/insights-worker",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo \"insights-worker: no build yet\"",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "echo \"insights-worker: no tests yet\"",
+    "start": "tsx src/main.ts",
+    "dev": "tsx watch src/main.ts"
+  },
+  "devDependencies": {
+    "@cadence/config": "workspace:*",
+    "@types/node": "^22.20.5",
+    "tsx": "^4.23.15"
+  },
+  "description": "Kafka consumer that recomputes per-user insights (stub).",
+  "dependencies": {
+    "zod": "^4.6.7"
+  }
+}

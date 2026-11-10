@@ -43,3 +43,14 @@ otherwise.
 - **GIVEN** a signed-in user
 - **WHEN** the client queries `me`
 - **THEN** it returns that user's id and email
+
+### Requirement: Privacy notice
+The system SHALL show a plain-language privacy notice, linked from sign-up and Settings, that states what is collected, why, that no third party receives it (except the AI provider for the workout builder), and how to export or delete it.
+
+#### Scenario: Notice linked at sign-up
+- **WHEN** a visitor opens the sign-up screen
+- **THEN** a "How we use your data" link opens the privacy notice before they create an account
+
+#### Scenario: Notice is accessible
+- **WHEN** axe runs on the privacy notice page
+- **THEN** there are no serious or critical violations and headings are in order

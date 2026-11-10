@@ -28,8 +28,9 @@ for event contracts.
 - **Clock injection:** `packages/domain` exports `Clock = () => Date` and `systemClock`.
 - **Mongo replica set:** `mongod --replSet rs0 --bind_ip_all --wiredTigerCacheSizeGB 0.25`, a
   healthcheck that runs `rs.initiate()` idempotently, and
-  `MONGO_URL=mongodb://localhost:27017/cadence?replicaSet=rs0&directConnection=true`. No auth
-  locally: bound to localhost, and the README says so.
+  host port **27018** (27017 is often taken by a local MongoDB), so
+  `MONGO_URL=mongodb://localhost:27018/cadence?replicaSet=rs0&directConnection=true`. No auth
+  locally; ports bound to 127.0.0.1.
 - **Kafka:** official `apache/kafka` 4.x, `KAFKA_HEAP_OPTS="-Xmx512m -Xms512m"`, replication
   factor 1, host listener `localhost:9092` and internal `kafka:29092`. A one-shot `kafka-init`
   runs `infra/kafka/create-topics.sh` with `--if-not-exists`.
@@ -54,6 +55,12 @@ for event contracts.
   | `user.deletion_requested` | `cadence.users.v1` | `{ requestId }` |
 - **Logging baseline:** pino with `redact` paths for known health fields plus a serializer that
   drops GraphQL `variables` and resolver args.
+
+- **Runtime and extra dependencies:** apps run from TS source with `tsx` (Node's native type
+  stripping can't resolve extensionless imports). Also added: `mongodb` (readiness ping),
+  `@testing-library/react`, `@testing-library/jest-dom`, `jsdom` (web unit tests). The API uses
+  Node's `http` module with Apollo's request handler, so no Express.
+- **pnpm install scripts:** blocked by default; only `esbuild` is allowed (`pnpm-workspace.yaml`).
 
 ## Risks / Trade-offs
 

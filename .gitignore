@@ -3,6 +3,7 @@ node_modules/
 dist/
 coverage/
 *.tsbuildinfo
+.turbo/
 
 # Environment (use .env.example for documentation)
 .env
@@ -19,3 +20,6 @@ apps/web/cypress/screenshots/
 # Local tool settings
 .claude/settings.local.json
 .DS_Store
+
+# Personal editor settings
+.vscode/settings.json

@@ -36,9 +36,9 @@ Real insights, other cycle fields (minimisation), change-stream relay, field enc
 ## Impact
 
 API consent, cycle and outbox modules plus relay container; worker consumer; web consent and
-period screens. Dependencies (asked per task): @confluentinc/kafka-javascript, testcontainers,
-UUID v7 generator.
+period screens. Dependencies (asked per task): @confluentinc/kafka-javascript, UUID v7 generator.
+Reuses the Testcontainers harness from `add-workout-logging` and adds Kafka to it.
 
 ## Depends on
 
-`setup-foundation`; `add-workout-logging` groups 1–11.
+`setup-foundation`; `add-workout-logging` groups 1–12.

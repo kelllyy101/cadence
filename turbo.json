@@ -1,0 +1,35 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "codegen": {
+      "outputs": ["src/generated/**"],
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/apps/api/src/schema/**/*.graphql"]
+    },
+    "build": {
+      "dependsOn": ["^build", "codegen"],
+      "outputs": ["dist/**"]
+    },
+    "lint": {
+      "dependsOn": ["codegen"]
+    },
+    "typecheck": {
+      "dependsOn": ["codegen"]
+    },
+    "test": {
+      "dependsOn": ["codegen"],
+      "outputs": ["coverage/**"]
+    },
+    "test:int": {
+      "dependsOn": ["codegen"],
+      "cache": false
+    },
+    "e2e": {
+      "cache": false
+    },
+    "dev": {
+      "dependsOn": ["codegen"],
+      "cache": false,
+      "persistent": true
+    }
+  }
+}

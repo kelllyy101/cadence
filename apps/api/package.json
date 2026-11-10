@@ -1,0 +1,34 @@
+{
+  "name": "@cadence/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "start": "tsx src/main.ts",
+    "codegen": "graphql-codegen --config codegen.ts",
+    "build": "echo \"api: runs from source with tsx (no build step)\"",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "check:mongo": "tsx scripts/check-mongo-transaction.ts"
+  },
+  "devDependencies": {
+    "@cadence/config": "workspace:*",
+    "@graphql-codegen/cli": "^8.0.0",
+    "@graphql-codegen/typescript": "^7.0.0",
+    "@graphql-codegen/typescript-resolvers": "^7.0.0",
+    "@types/node": "^22.20.5",
+    "tsx": "^4.23.15"
+  },
+  "dependencies": {
+    "@apollo/server": "^5.5.1",
+    "@cadence/domain": "workspace:*",
+    "graphql": "^16.15.0",
+    "mongodb": "^7.8.0",
+    "pino": "^10.4.0",
+    "zod": "^4.6.7"
+  },
+  "description": "Cadence GraphQL API, auth, outbox relay and REST health/export/metrics."
+}

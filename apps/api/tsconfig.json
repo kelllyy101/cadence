@@ -1,0 +1,4 @@
+{
+  "extends": "@cadence/config/tsconfig.node.json",
+  "include": ["src", "scripts", "codegen.ts", "vitest.config.ts"]
+}

@@ -40,5 +40,5 @@ screens and images; import and eval scripts. New: `@anthropic-ai/sdk`, env `WORK
 
 ## Depends on
 
-`setup-foundation`; `add-workout-logging` groups 2, 4, 16; `add-training-insights` group 5 (or
+`setup-foundation`; `add-workout-logging` groups 3, 5, 17; `add-training-insights` group 5 (or
 group 4 here adds a minimal flag provider).

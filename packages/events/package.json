@@ -1,0 +1,23 @@
+{
+  "name": "@cadence/events",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo \"events: no build yet\"",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit -p .",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@cadence/config": "workspace:*"
+  },
+  "dependencies": {
+    "zod": "^4.6.7"
+  },
+  "description": "Cadence event contracts: envelope, catalogue, topics and validation.",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}

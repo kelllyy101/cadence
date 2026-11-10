@@ -1,0 +1,39 @@
+{
+  "name": "cadence",
+  "private": true,
+  "type": "module",
+  "description": "Cycle-aware training PWA for women who run and lift.",
+  "packageManager": "pnpm@12.18.0",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:int": "turbo run test:int",
+    "e2e": "turbo run e2e",
+    "codegen": "turbo run codegen",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@cadence/config": "workspace:*",
+    "@eslint/js": "9.39.5",
+    "@types/node": "^22.20.5",
+    "@vitest/coverage-v8": "^5.1.0",
+    "eslint": "9.39.5",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "globals": "17.14.0",
+    "prettier": "3.9.10",
+    "turbo": "2.11.10",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.1",
+    "vitest": "^5.1.0"
+  },
+  "license": "MIT"
+}

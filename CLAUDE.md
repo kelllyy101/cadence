@@ -12,7 +12,7 @@ accessibility and privacy beat feature count.**
 |---|---|
 | Monorepo | pnpm workspaces + Turborepo ([ADR-0001](docs/adr/0001-monorepo-pnpm-turborepo.md)) |
 | Runtime | Node 22, TypeScript strict |
-| Web | React + Vite PWA, Apollo Client, Recharts, react-hook-form + zod ([ADR-0002](docs/adr/0002-pwa-over-native.md)) |
+| Web | React + Vite PWA, Apollo Client, Recharts, react-hook-form + zod ([ADR-0002](docs/adr/0002-pwa-over-native.md)); CSS Modules + tokens, React Aria ([ADR-0008](docs/adr/0008-styling-css-modules-react-aria.md)) |
 | API | Apollo Server, schema-first + codegen ([ADR-0003](docs/adr/0003-schema-first-graphql-codegen.md)); REST for export/health/metrics |
 | Auth | Better Auth + MongoDB adapter ([ADR-0005](docs/adr/0005-self-hosted-auth-better-auth.md)) |
 | Data / events | MongoDB 8 replica set + Mongoose; Kafka 4 KRaft + outbox ([ADR-0004](docs/adr/0004-kafka-kraft-transactional-outbox.md)) |
