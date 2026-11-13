@@ -1,0 +1,27 @@
+{
+  "name": "@cadence/testing",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo \"testing: consumed as TS source\"",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "dependencies": {
+    "@testcontainers/mongodb": "^11.0.0"
+  },
+  "peerDependencies": {
+    "vitest": "^5.1.0"
+  },
+  "devDependencies": {
+    "@cadence/config": "workspace:*",
+    "vitest": "^5.1.0"
+  },
+  "description": "Shared integration-test harness: Testcontainers for MongoDB (Kafka arrives with events).",
+  "exports": {
+    "./mongo": "./src/mongo-replica-set.ts",
+    "./vitest": "./src/vitest-mongo-global-setup.ts",
+    "./vitest-context": "./src/vitest-context.ts"
+  }
+}

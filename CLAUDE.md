@@ -26,6 +26,7 @@ accessibility and privacy beat feature count.**
 ```
 apps/web | apps/api | apps/insights-worker
 packages/domain   pure logic (no I/O)      packages/events   event schemas + topics
+packages/testing  Testcontainers harness
 packages/config   tsconfig + ESLint        scripts/          dev utilities
 docs/             vision, architecture, adr, roadmap, backlog
 openspec/         config.yaml, changes/ (planned), specs/ (shipped)

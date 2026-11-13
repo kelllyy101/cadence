@@ -6,3 +6,7 @@ packages:
 allowBuilds:
   esbuild: true # binary used by tsx
   '@apollo/protobufjs': false # postinstall not needed
+  # testcontainers transitive deps: optional native builds, not needed
+  cpu-features: false
+  ssh2: false
+  protobufjs: false

@@ -11,11 +11,13 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit -p .",
     "test": "vitest run",
+    "test:int": "vitest run --config vitest.int.config.ts",
     "test:coverage": "vitest run --coverage",
     "check:mongo": "tsx scripts/check-mongo-transaction.ts"
   },
   "devDependencies": {
     "@cadence/config": "workspace:*",
+    "@cadence/testing": "workspace:*",
     "@graphql-codegen/cli": "^8.0.0",
     "@graphql-codegen/typescript": "^7.0.0",
     "@graphql-codegen/typescript-resolvers": "^7.0.0",

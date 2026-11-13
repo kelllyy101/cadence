@@ -2,7 +2,7 @@
 
 ## 1. Testcontainers harness
 
-- [ ] 1.1 Add a shared integration-test harness that starts a MongoDB 8 replica set with healthcheck waits, plus `pnpm test:int` in Turbo (ask first: testcontainers). Verify a trivial transaction test passes
+- [x] 1.1 Add a shared integration-test harness that starts a MongoDB 8 replica set with healthcheck waits, plus `pnpm test:int` in Turbo (ask first: testcontainers). Verify a trivial transaction test passes
 - [ ] 1.2 Run `test:int` in CI after unit tests (Docker is available on GitHub runners). Verify the CI job runs it
 
 ## 2. Better Auth in API (T-01-01)
